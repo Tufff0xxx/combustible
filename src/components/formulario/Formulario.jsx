@@ -8,14 +8,13 @@ const Formulario = () => {
     personal: "",
     kilometros: "",
     litros: "",
-    foto: null,
   });
 
   const handleChange = (e) => {
-    const { name, value, type, files } = e.target;
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "file" ? files[0] : value,
+      [name]: value,
     });
   };
 
@@ -28,11 +27,14 @@ const Formulario = () => {
     });
 
     try {
-      await fetch("https://script.google.com/macros/s/AKfycbw0KWHEgIgYSaKRuuM8GWVgFNkD2lrnvdXX9s8N5mbJK0J8swW-11X_fOgdQuZQKoti8g/exec", {
+      const response = await fetch("https://script.google.com/macros/s/AKfycbw0KWHEgIgYSaKRuuM8GWVgFNkD2lrnvdXX9s8N5mbJK0J8swW-11X_fOgdQuZQKoti8g/exec", {
         method: "POST",
         body: data,
       });
-      alert("Datos enviados correctamente");
+      
+      const text = await response.text();
+      alert(text); // Muestra el mensaje del servidor
+
     } catch (error) {
       console.error("Error al enviar los datos", error);
     }
@@ -68,11 +70,6 @@ const Formulario = () => {
       <label>
         Litros:
         <input type="number" name="litros" value={formData.litros} onChange={handleChange} required />
-      </label>
-
-      <label>
-        Foto:
-        <input type="file" name="foto" onChange={handleChange} accept="image/*" required />
       </label>
 
       <button type="submit">Enviar</button>
