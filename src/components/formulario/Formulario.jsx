@@ -28,7 +28,7 @@ const Formulario = () => {
     });
 
     try {
-      await fetch("URL_DEL_SCRIPT_GOOGLE_APPS", {
+      await fetch("https://script.google.com/macros/s/AKfycbw0KWHEgIgYSaKRuuM8GWVgFNkD2lrnvdXX9s8N5mbJK0J8swW-11X_fOgdQuZQKoti8g/exec", {
         method: "POST",
         body: data,
       });
