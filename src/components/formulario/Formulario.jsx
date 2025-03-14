@@ -20,21 +20,24 @@ const Formulario = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const data = new FormData();
+  
+    const data = new URLSearchParams();
     Object.keys(formData).forEach((key) => {
       data.append(key, formData[key]);
     });
-
+  
     try {
-      const response = await fetch("https://script.google.com/macros/s/AKfycbw0KWHEgIgYSaKRuuM8GWVgFNkD2lrnvdXX9s8N5mbJK0J8swW-11X_fOgdQuZQKoti8g/exec", {
-        method: "POST",
-        body: data,
-      });
-      
-      const text = await response.text();
-      alert(text); // Muestra el mensaje del servidor
-
+      const response = await fetch(
+        "https://script.google.com/macros/s/AKfycbwGorMzPsVigPXyX7OCCXMZXY3-2a-Z71XnGceCg3-Vse_8uX15ZLZCX_D3BeqqNmXHfw/exec",
+        {
+          method: "POST",
+          body: data,
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        }
+      );
+  
+      const result = await response.json();
+      alert(result.mensaje);
     } catch (error) {
       console.error("Error al enviar los datos", error);
     }
